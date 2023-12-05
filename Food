@@ -1,3 +1,63 @@
+public enum FoodCategory {
+    MAIN, DESSERT, DRINK;
+}
+
 public Class Food{
+
+    public String name;
+    public FoodCategory category;
+    private ArrayList <String> ingredients;
+    private Boolean isVegan;
+    private Boolean isVegetarian;
+    private Boolean isSpicy;
+    private Boolean hasGluten;
+    private Boolean hasLactose;
+    public Double Price;
+
+    // ADD INGREDIENT
+    public Food(String name, FoodCategory category, boolean isVegan, boolean isVegetarian,
+    boolean isSpicy, boolean hasGluten, boolean hasLactose, double price){
+        this.name = name;
+        this.category = category;
+        this.isVegan = isVegan;
+        this.isVegetarian = isVegetarian;
+        this.isSpicy = isSpicy;
+        this.hasGluten = hasGluten;
+        this.hasLactose = hasLactose;
+        this.price = price;
+    }
+
+    public void getCategory(){
+        return this.category;
+    }
+
+    public void getIngredients(){
+        for (String s: this.ingredients){ //for p in the arraylist
+            System.out.println("- " + s);
+        }
+    }
     
+    public void getIsVegan(){
+        return this.ingredients;
+    }
+
+    public void getIsVegetarian(){
+        return this.isVegetarian;
+    }
+
+    public void getIsSpicy(){
+        return this.isSpicy;
+    }
+
+    public void getHasGluten(){
+        return this.hasGluten;
+    }
+
+    public void getHasLactose(){
+        return this.hasLactose;
+    }
+
+    public void getPrice(){
+        return this.price;
+    }
 }

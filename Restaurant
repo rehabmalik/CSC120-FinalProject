@@ -3,6 +3,6 @@ public class Restaurant {
     Hashtable <Food, double this.price> Menu;
     ArrayList<Customer> Customers;
 
-    public printMenu(){}
+    
 
 }
