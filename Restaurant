@@ -1,1 +1,8 @@
-public class Restaurant {}
+public class Restaurant {
+    ArrayList<Table> Tables;
+    Hashtable <Food, double this.price> Menu;
+    ArrayList<Customer> Customers;
+
+    public printMenu(){}
+
+}
