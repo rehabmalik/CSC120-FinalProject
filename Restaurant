@@ -1,6 +1,6 @@
 public class Restaurant {
     ArrayList<Table> Tables;
-    Hashtable <Food, double this.price> Menu;
+    Hashtable <Food, Double> Menu;
     ArrayList<Customer> Customers;
 
     
