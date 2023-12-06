@@ -3,32 +3,23 @@ public enum FoodCategory {
 }
 
 public Class Food{
-    /**
-     * Food name */
+    /** Food name */
     public String name;
-    /**
-     * Food category from MAIN, DESSERT, DRINK */
+    /** Food category from MAIN, DESSERT, DRINK */
     public FoodCategory category;
-    /**
-     * Tbd */
+    /** Tbd */
     private ArrayList <String> ingredients;
-    /**
-     * boolean isVegan */
+    /** boolean isVegan */
     private Boolean isVegan;
-    /**
-     * boolean isVegetarian */
+    /** boolean isVegetarian */
     private Boolean isVegetarian;
-    /**
-     * boolean isSpicy */
+    /** boolean isSpicy */
     private Boolean isSpicy;
-    /**
-     * boolean hasGluten */
+    /** boolean hasGluten */
     private Boolean hasGluten;
-    /**
-     * boolean hasLacose */
+    /** boolean hasLacose */
     private Boolean hasLactose;
-    /**
-     * boolean double price */
+    /** boolean double price */
     public Double Price;
 
     // ADD INGREDIENT
@@ -50,15 +41,11 @@ public Class Food{
         this.hasLactose = hasLactose;
         this.price = price;
     }
-     /**
-     * accessor for category
-     */
+     /** accessor for category */
     public void getCategory(){
         return this.category;
     }
-     /**
-     * accessor for ingredients
-     */
+     /** accessor for ingredients */
     public void getIngredients(){
         for (String s: this.ingredients){ //for p in the arraylist
             System.out.println("- " + s);
