@@ -1,8 +1,6 @@
-public enum FoodCategory {
-    MAIN, DESSERT, DRINK;
-}
+import java.util.ArrayList;
 
-public Class Food{
+public class Food{
     /** Food name */
     public String name;
     /** Food category from MAIN, DESSERT, DRINK */
@@ -20,7 +18,7 @@ public Class Food{
     /** boolean hasLacose */
     private Boolean hasLactose;
     /** boolean double price */
-    public Double Price;
+    public double price;
 
     // ADD INGREDIENT
     /**
@@ -39,10 +37,10 @@ public Class Food{
         this.isSpicy = isSpicy;
         this.hasGluten = hasGluten;
         this.hasLactose = hasLactose;
-        this.price = price;
+        this.Price = price;
     }
      /** accessor for category */
-    public void getCategory(){
+    public FoodCategory getCategory(){
         return this.category;
     }
      /** accessor for ingredients */
@@ -55,42 +53,42 @@ public Class Food{
      * accessor for whether it is vegan
      * @return boolean isVegan
      */
-    public void getIsVegan(){
+    public Boolean getIsVegan(){
         return this.isVegan;
     }
      /**
      * accessor for whether is is vegetarian
      * @return boolean isVegetarian
      */
-    public void getIsVegetarian(){
+    public Boolean getIsVegetarian(){
         return this.isVegetarian;
     }
      /**
      * accessor for whether is is spciy
      * @return boolean isSpicy
      */
-    public void getIsSpicy(){
+    public Boolean getIsSpicy(){
         return this.isSpicy;
     }
       /**
      * accessor for whether it has gluten
      * @return boolean hasGluten
      */
-    public void getHasGluten(){
+    public Boolean getHasGluten(){
         return this.hasGluten;
     }
      /**
      * accessor for whether it has lactose
      * @return boolean hasGluten
      */
-    public void getHasLactose(){
+    public Boolean getHasLactose(){
         return this.hasLactose;
     }
      /**
      * accessor for price
      * @return double price
      */
-    public void getPrice(){
+    public double getPrice(){
         return this.price;
     }
 }

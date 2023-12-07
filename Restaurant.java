@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 public class Restaurant {
     ArrayList<Table> tables;
     Hashtable <Food, Double> menu;

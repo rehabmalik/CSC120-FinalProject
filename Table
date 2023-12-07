@@ -1,0 +1,9 @@
+public Class Table{
+    Arraylis <Customer> customers;
+    final int nCustomers = 4;
+    
+    public Table(){
+        this.
+    }
+
+}
