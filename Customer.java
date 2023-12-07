@@ -70,7 +70,7 @@ public class Customer{
     }
 
 
-    public void tip(amount){
+    public void tip(int amount){
         //default tip amount is $10
         finalTip = finalTip + amount;
     }
@@ -78,6 +78,14 @@ public class Customer{
     public Integer finalTip(){
         //accessing the table's total tip 
         return this.finalTip;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+    
+    public void sit(Table table){
+        table.customers.add(this);
     }
     
 }

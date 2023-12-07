@@ -39,6 +39,13 @@ public class Food{
         this.hasLactose = hasLactose;
         this.price = price;
     }
+     /**
+      * accessor for food name
+      * @return String name
+      */
+    public String getName(){
+        return this.name;
+    }
      /** accessor for category */
     public FoodCategory getCategory(){
         return this.category;
@@ -90,5 +97,14 @@ public class Food{
      */
     public double getPrice(){
         return this.price;
+    }
+     //problem with toString
+    public String toString(){
+        return this.name + "costs: " + this.price + ".";
+    }
+
+    public static void main(String[] args) {
+        Food ab = new Food ("ab", FoodCategory.DRINK, false, false, false, false, false, 2);
+        ab.toString();
     }
 }
