@@ -37,7 +37,7 @@ public class Food{
         this.isSpicy = isSpicy;
         this.hasGluten = hasGluten;
         this.hasLactose = hasLactose;
-        this.Price = price;
+        this.price = price;
     }
      /** accessor for category */
     public FoodCategory getCategory(){
