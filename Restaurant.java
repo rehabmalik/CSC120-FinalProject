@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class Restaurant {
     ArrayList<Table> tables;
-    Hashtable <Food, Double> menu;
+    ArrayList <Food> menu;
     ArrayList<Customer> customers;
     String name;
 
@@ -11,7 +10,7 @@ public class Restaurant {
     public Restaurant (String name){
         this.name = name;
         this.tables = new ArrayList<Table>();
-        this.menu = new Hashtable<Food, Double>();
+        this.menu = new ArrayList<Food>();
         this.customers = new ArrayList<Customer>();
     }
      /**
@@ -23,12 +22,12 @@ public class Restaurant {
     }
 
     public void addToMenu(Food food){
-        menu.put(food, food.price);
+        menu.add(food);
     }
      // problems with printmenu
     public void printMenu(){
-        for (int i = 0; i<this.menu.size(); i++){
-            this.menu.get(i).toString();
+        for (Food f: this.menu){
+            f.toString();
         }
     }
 
