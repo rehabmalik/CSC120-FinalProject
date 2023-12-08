@@ -1,85 +1,91 @@
 /* This is a stub for the Customer class */
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random; 
 
 /** 
  *  Class representing customers 
  *  Customers are contained in Table which is contained in Restaurant
- *  Parent class of hardCustomer, easyCustomer, mediumCustomer
- */
+ */ 
  
 public class Customer{
 
 
     //attributes
-    private String name;
-    private Arraylist <food> Order;
-    private Random randomPreference;
+    public String name;
+    public Food order; 
+    public Boolean hasQuestion; 
+    public Integer finalTip = 10;
     
      
 
     /** 
     *  Constructs a house using its parameters and initializes residents
-    *  @param name  The name of house
-    *  @param address  The address of house
-    *  @param nFloors  The number of floors
-    *  @param hasDiningRoom  If the house has a dining room  
-    *  @param hasElevator  If the house has an elevator 
+    *  @param 
     */
 
     //constructor 
-    public House(String name, String address, int nFloors, boolean hasDiningRoom, boolean hasElevator) {
-        super(name, address, nFloors);
-
-        System.out.println("\n===\nYou have built a house: 🏠\n===\n");
+    public Customer(String name, Food order, Boolean hasQuestion, Integer finalTip) {
         
         //initialize residents to a new ArrayList<String>()
-        this.residents = new ArrayList<String>(); 
-        this.hasDiningRoom = hasDiningRoom; //sets hasDiningRoom to indicate whether or not the house has a dining room. 
-        this.hasElevator = hasElevator;
+        this.name = ""; 
+        this.order = "";
+        this.hasQuestion = false;
+        this.finalTip = finalTip;
     }
 
+    //accessors
 
     /** 
-     *  Checks if the house has a dining room
+    *  Checks if the house has a dining room
     *  @return T/F on whether the house has a dining room or not 
     */
 
-    //accessors
-    public boolean enterRestaurant(){ 
-        this.add to restaurant.customers
+
+    public String order(){
+        //get random number of the length of Hashtable 
+        Random rand = new Random();
+        int randomOrder = rand.nextInt(15);
+
+        // access menu
+        String chosenFood = Restaurant.menu.get(randomOrder);
+
+        // print customers order
+        System.out.println("Can I have " + chosenFood + "?");
+
+        return chosenFood;
     }
 
 
-    public boolean exitRestaurant(){
-        this.remove from restaurant.customers
+    public String askQuestion(){
+        //get random number
+        Random rand2 = new Random();
+        int randomQ = rand2.nextInt(Restaurant.questionKeys.size());
+        
+        //picks randomly
+        String chosenQ = Restaurant.questionKeys.get(randomQ);
+
+        return chosenQ;
     }
 
 
-    public order(){
-
+    public void tip(int amount){
+        //default tip amount is $10
+        finalTip = finalTip + amount;
+    }
+ 
+    public Integer finalTip(){
+        //accessing the table's total tip 
+        return this.finalTip;
     }
 
-    public askQuestion(){
-
-    }
-
-    public tip(){
-
-    }
-
-    /** 
-     *  Counts and returns the number of residents in the house
-    *  @return the size of the residents 
-    */
-
-    public chooseRandom(){
-
+    public String getName(){
+        return this.name;
     }
     
-
-
+    public void sit(Table table){
+        table.customers.add(this);
+    }
     
-
 }
