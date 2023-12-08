@@ -1,6 +1,65 @@
+import java.util.Scanner;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Random;
+
 public class Game{
     Difficulty gameDifficulty;
+    static Restaurant ourRestaurant;
+    Hashtable <String, Boolean> questions;
+    static Waiter player;
+
+    /** Game constructor */
+    public Game(){
+        // want to make # of tables change with difficulty perhaps
+        ourRestaurant = new Restaurant("The Restaurant man idk", 3); 
+        this.questions = new Hashtable <String, Boolean>() ;
+        this.questions.questions();
+    }
+
+    /** Randomly assigns answer to list of questions */
+    // Should move this code to the Restaurant class
+    public void questions(Hashtable<String, Boolean> q){
+        Random random = new Random();
+        q.put("Do you take debit cards?",random.nextBoolean());
+        q.put("Do you have little spoons for babies?",random.nextBoolean());
+        q.put("Does this restaurant have gender-neutral bathrooms?",random.nextBoolean());
+        q.put("Do you have craft beer?",random.nextBoolean());
+        q.put("Does this restaurant do take out?",random.nextBoolean());
+        q.put("Is smoking inside allowed?",random.nextBoolean());
+        q.put("Are pets allowed in?",random.nextBoolean());
+    }
+
+    /**  */
+    public void printQuestions(){
+        String element = "";
+        for (Enumeration<String> e = this.questions.keys(); e.hasMoreElements();){
+            element = e.nextElement();
+            if (questions.get(element) == true) {
+                System.out.println(element + " Yes.");
+            }
+            else {
+                System.out.println(element + " No.");
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println("Welcome to game game :)");
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Welcome to " + ourRestaurant.getName() + "! I'm your manager, Patrick. What's your name?");
+        player.name = input.nextLine();
+        System.out.println("We're happy to have you on the team, " + player.getName() + ". You'll be a great waiter in no time!");
+
+        System.out.println("First, take a look at the menu. Make sure you read it over carefully.");
+        ourRestaurant.printMenu();
+        System.out.println("There's also a few things you should know about the restaurant.");
+        ourRestaurant.printQuestions(); //need questions in restaurant, not here
+
+        System.out.println("Don't be afraid to ask for help, but make sure you answer customers quickly! We wouldn't want to keep anyone waiting.");
+        System.out.println("Hint: Type 'help' if you're not sure what to do next");
+        System.out.println("Alright, time for your first table!");
+
+        
     }
 }

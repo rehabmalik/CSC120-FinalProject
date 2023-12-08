@@ -59,6 +59,22 @@ public class Waiter {
         this.fuckUpsLeft = 3;
     }
 
+    /** 
+     * Returns the waiter's name
+     * @return name
+     */
+    public String getName(){
+        return this.name;
+    }
+
+    /** 
+     * Returns the waiter's date's name
+     * @return name
+     */
+    public String getDateName(){
+        return this.dateName;
+    }
+
      /**
      * Returns the current number of times the player has fucked up
      * @return currentFuckUps

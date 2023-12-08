@@ -22,6 +22,14 @@ public class Restaurant {
         this.tables = new ArrayList<Table>(n);
     }
 
+    /**
+     * Gives name of Restaurant
+     * @return name
+     */
+    public String getName(){
+        return this.name;
+    }
+
     public void addToMenu(Food food){
         menu.put(food, food.price);
     }
