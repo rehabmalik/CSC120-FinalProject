@@ -21,6 +21,10 @@ public class Restaurant {
         this.tables = new ArrayList<Table>(n);
     }
 
+    /**
+     * Gives name of Restaurant
+     * @return name
+     */
     public String getName(){
         return this.name;
     }
