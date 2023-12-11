@@ -3,8 +3,11 @@ import java.util.Hashtable;
 import java.util.Random;
 
 public class Restaurant {
+    /** arraylist of tables in the restaurant */
     ArrayList<Table> tables;
+    /** arraylist of foods */
     public ArrayList <Food> menu;
+    /** arraylist of customers */
     ArrayList<Customer> customers;
     public String name;
     Hashtable <String, Boolean> questions;
@@ -16,7 +19,12 @@ public class Restaurant {
         this.name = name;
         this.tables = new ArrayList<Table>();
         this.menu = new ArrayList<Food>();
+        
+
+
         this.customers = new ArrayList<Customer>();
+
+
         this.questions = new Hashtable<String, Boolean>();
         this.random = new Random();
         this.questions.put("Do you take debit cards?", random.nextBoolean());
@@ -30,6 +38,8 @@ public class Restaurant {
         this.questions.put("Do you have vegetarian dishes?", true);
         this.questions.put("Do you have vegan dishes?", true);
         this.questions.put("Are there any drinks without alcohol?", true);
+
+
         this.questionKeys = new ArrayList<>();
         this.questionKeys.add("Do you take debit cards?");
         this.questionKeys.add("Do you have little spoons for babies?");
@@ -50,6 +60,11 @@ public class Restaurant {
     public Restaurant(String name, int n){
         this(name);
         this.tables = new ArrayList<Table>(n);
+    }
+
+    public void addTable(){
+        Table table = new Table();
+        this.tables.add(table);
     }
 
     /**

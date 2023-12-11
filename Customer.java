@@ -26,7 +26,7 @@ public class Customer{
     */
 
     //constructor 
-    public Customer(String name, Food order, Boolean hasQuestion, Integer finalTip) {
+    public Customer(String name, Food order, Boolean hasQuestion) {
         
         //initialize residents to a new ArrayList<String>()
         this.name = ""; 
