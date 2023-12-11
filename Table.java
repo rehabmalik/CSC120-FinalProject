@@ -9,6 +9,7 @@ public class Table{
     public Table(){
         this.customers = new ArrayList<Customer>();
     }
+    
      /**
       * adds customer to the arraylist of customers of table
       * @param customer

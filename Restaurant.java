@@ -9,9 +9,12 @@ public class Restaurant {
     public ArrayList <Food> menu;
     /** arraylist of customers */
     ArrayList<Customer> customers;
+    /** string of restaurant name */
     public String name;
+    /** hashtable of customer questions and keys */
     Hashtable <String, Boolean> questions;
     private Random random;
+    /** arraylist of customer questions */
     ArrayList <String> questionKeys;
 
     /** Defualt constructor for restaurant */
@@ -85,6 +88,13 @@ public class Restaurant {
             f.print();
         }
     }
+
+   // public void enter(Customer customer){
+   //     try {
+       
+       // }
+      //  this.customers.add(customer);
+  //  }
 
 
     public static void main(String[] args) {
