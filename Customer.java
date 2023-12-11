@@ -49,7 +49,7 @@ public class Customer{
         int randomOrder = rand.nextInt(15);
 
         // access menu
-        String chosenFood = Restaurant.menu.get(randomOrder);
+        String chosenFood = Restaurant.menu.get(randomOrder); 
 
         // print customers order
         System.out.println("Can I have " + chosenFood + "?");

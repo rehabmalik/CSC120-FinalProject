@@ -21,15 +21,21 @@ public class Restaurant {
         this.tables = new ArrayList<Table>(n);
     }
 
+    public String getName(){
+        return this.name;
+    }
+
     public void addToMenu(Food food){
         menu.add(food);
     }
-     // problems with printmenu
+    
     public void printMenu(){
+        System.out.println("** " + this.getName() + "Menu! **");
         for (Food f: this.menu){
-            f.toString();
+            f.print();
         }
     }
+
 
     public static void main(String[] args) {
         Food ab = new Food ("ab", FoodCategory.DRINK, false, false, false, false, false, 2);
@@ -38,4 +44,5 @@ public class Restaurant {
         ab.toString();
        // myRestaurant.printMenu();
     }
+
 }
