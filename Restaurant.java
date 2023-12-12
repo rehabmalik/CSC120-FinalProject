@@ -100,9 +100,9 @@ public class Restaurant {
       * adds customer to the first vacant spot on a table
       * @param customer
       */
-    public void enter(Customer customer, Table table){
+    public void enter(Customer customer, Table t){
         try {
-            table.sitCustomer(customer);
+            t.sitCustomer(customer);
             System.out.println(customer.getName() + " has been seated.");
         } catch (RuntimeException e) {
             // Table is full or customer is already seated, try the next table

@@ -44,7 +44,6 @@ public class Waiter {
      */
     private int askKitchenCount = 0;
 
-
     /**
      * Constructor
      * @param name
@@ -186,24 +185,27 @@ public class Waiter {
      */
     public void enterOrder(String order, String customerName){
         // how do i randomly assign A,B,C,D to the menu items, so the correct option is not always D
-        ArrayList<String> index = new ArrayList<String>();  // List of answer indeces
+        // fixed
+        // List of answer indeces
+        ArrayList<String> index = new ArrayList<String>();  
         index.add("A. ");
         index.add("B. ");
         index.add("C. ");
         index.add("D. ");
 
-        // Weird bug - whenever I call enterOrder again it doesn't "reset"  
-        // menuCopy so it just empties out until it throws a bound error
-        ArrayList<String> menuCopy= Restaurant.menuItems;  // Copy of menu items to prevent repeats
+        // Copy of menu items to prevent repeats
+        ArrayList<String> menuCopy = new ArrayList<String>();  
+        for (String i : Restaurant.menuItems){
+            menuCopy.add(i);
+        }
         menuCopy.remove(order);
 
         System.out.println("What did " + customerName + " order?");
         Random random = new Random();
         int correct = random.nextInt(4);    // Which answer will be correct
         int randomIndex;
+
         for (int i=0; i<4; i++){
-            System.out.println(menuCopy.size()); // testing
-            System.out.println(Restaurant.menu.size()); // testing
             if (i==correct){
                 System.out.println(index.get(i) + order);
             }
@@ -212,6 +214,15 @@ public class Waiter {
                 System.out.println(index.get(i) + menuCopy.get(randomIndex));
                 menuCopy.remove(menuCopy.get(randomIndex));
             }
+        }
+        menuCopy.clear();
+
+        String answer = scanner.nextLine().toUpperCase();
+        if(index.get(correct).contains(answer)){
+            System.out.println("Yep");
+        }
+        else if (answer.equals("A") || answer.equals("B") || answer.equals("C") || answer.equals("D")){
+            System.out.println("Nope");
         }
     }
 

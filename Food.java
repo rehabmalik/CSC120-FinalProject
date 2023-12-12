@@ -102,7 +102,14 @@ public class Food{
       * print the price of food
       */
     public void print(){
-        System.out.println(this.name + " costs " + this.price + " dollars.");
+        String output = this.name + "(";
+        if (this.isVegan == true){
+            output+="vegan, ";}
+        if (this.isVegetarian == true){
+            output+="vegetarian, ";}
+        if (this.isSpicy == true){
+            output+="spicy, ";} //FINISH
+        System.out.println(output);
     }
 
     public static void main(String[] args) {
