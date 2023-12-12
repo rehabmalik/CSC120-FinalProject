@@ -19,6 +19,7 @@ public class Restaurant {
     /** arraylist of customer questions */
     static ArrayList <String> questionKeys;
 
+
     /** Defualt constructor for restaurant */
     public Restaurant (String name){
         Restaurant.name = name;
@@ -58,6 +59,7 @@ public class Restaurant {
         
         
     }
+
      /**
       * Overloaded constructor with the number of tables
       */
@@ -101,18 +103,18 @@ public class Restaurant {
       * @param customer
       */
     public void enter(Customer customer, Table t){
-        try {
+       try {
             t.sitCustomer(customer);
             System.out.println(customer.getName() + " has been seated.");
-        } catch (RuntimeException e) {
-            // Table is full or customer is already seated, try the next table
             }
-        
-    }
+        catch (RuntimeException e) {
+                // Table is full or customer is already seated, try the next table
+            }
+        }
+    
 
-    // Don't think we need this, can be directly accessed from Customer
     public void exit(Customer customer){
-        customer.getTable.removeCustomer(customer);
+        this.customers.remove(customer);
     }
 
 
@@ -123,5 +125,4 @@ public class Restaurant {
         ab.toString();
        // myRestaurant.printMenu();
     }
-
 }

@@ -68,7 +68,7 @@ public class Waiter {
 
     /** 
      * Returns the waiter's date's name
-     * @return name
+     * @return dateName
      */
     public String getDateName(){
         return this.dateName;
