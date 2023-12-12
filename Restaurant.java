@@ -19,6 +19,7 @@ public class Restaurant {
     /** arraylist of customer questions */
     static ArrayList <String> questionKeys;
 
+
     /** Defualt constructor for restaurant */
     public Restaurant (String name){
         Restaurant.name = name;
@@ -58,6 +59,7 @@ public class Restaurant {
         
         
     }
+    
      /**
       * Overloaded constructor with the number of tables
       */
@@ -111,9 +113,9 @@ public class Restaurant {
     }
 
     // Don't think we need this, can be directly accessed from Customer
-    public void exit(Customer customer){
-        customer.getTable.removeCustomer(customer);
-    }
+    // public void exit(Customer customer){
+    //     Customer.getTable.removeCustomer(customer);
+    // }
 
 
     public static void main(String[] args) {
@@ -123,5 +125,4 @@ public class Restaurant {
         ab.toString();
        // myRestaurant.printMenu();
     }
-
 }
