@@ -5,9 +5,11 @@ public class Table{
     ArrayList <Customer> customers;
     /** capacity of table customers */
     final int nCustomers = 4;
+    int totalTip;
     
     public Table(){
         this.customers = new ArrayList<Customer>();
+        this.totalTip = 0;
     }
     
      /**
@@ -45,13 +47,12 @@ public class Table{
      * @return int total tip
      */
     public int totalTip(){
-        int totalTip = 0;
         if (this.customers.isEmpty()){
             throw new RuntimeException("This table is empty!");
         }
         for (Customer customer: this.customers){
-            totalTip += customer.finalTip;
+            this.totalTip += customer.finalTip;
         }
-        return totalTip;
+        return this.totalTip;
     }
 }

@@ -29,11 +29,12 @@ public class Help{
             }
             callCommand(scanner.nextLine());
         }
-        if (scanner.nextLine().equals("B")){
+        else if (scanner.nextLine().equals("B")){
             /*prints all game rules */
         }
         else {
             System.out.println("Choose one of the given options.");
+            help();
         }
     }
 

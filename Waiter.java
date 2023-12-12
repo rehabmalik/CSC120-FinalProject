@@ -108,10 +108,17 @@ public class Waiter {
     }
 
     /**
-     * Outputs a message to welcome the customer and prompt them to begin their order.
+     * Outputs a message to welcome the customer and seat guests at table.
+     */
+    public void welcome(){
+        System.out.println(this.name + ": Welcome to " + Restaurant.name + "! Your table is right this way.");
+    }
+
+    /**
+     * Outputs a message to greet the customer and prompt them to begin their order.
      */
     public void greet(){
-        System.out.println(this.name + "Hello! My name is " + this.name + "Welcome to " + Restaurant.name + ". What can I get started for you today?");
+        System.out.println(this.name + ": Hello! My name is " + this.name + ". What can I get started for you today?");
     }
 
     /**
@@ -178,16 +185,34 @@ public class Waiter {
      * @param customerName String
      */
     public void enterOrder(String order, String customerName){
-       // how do i randomly assign A,B,C,D to the menu items, so the correct option is not always D
-       System.out.println("What did " + customerName + "order?");
-       Random random = new Random();
-       int randomIndex = random.nextInt(Restaurant.menu.size());
-       System.out.println("A." + Restaurant.menu.get(randomIndex).name);
-       randomIndex = random.nextInt(Restaurant.menu.size());
-       System.out.println("B. " + Restaurant.menu.get(randomIndex).name);
-       randomIndex = random.nextInt(Restaurant.menu.size());
-       System.out.println("C. " + Restaurant.menu.get(randomIndex).name);
-       System.out.println("D. " + order);
+        // how do i randomly assign A,B,C,D to the menu items, so the correct option is not always D
+        ArrayList<String> index = new ArrayList<String>();  // List of answer indeces
+        index.add("A. ");
+        index.add("B. ");
+        index.add("C. ");
+        index.add("D. ");
+
+        // Weird bug - whenever I call enterOrder again it doesn't "reset"  
+        // menuCopy so it just empties out until it throws a bound error
+        ArrayList<String> menuCopy= Restaurant.menuItems;  // Copy of menu items to prevent repeats
+        menuCopy.remove(order);
+
+        System.out.println("What did " + customerName + " order?");
+        Random random = new Random();
+        int correct = random.nextInt(4);    // Which answer will be correct
+        int randomIndex;
+        for (int i=0; i<4; i++){
+            System.out.println(menuCopy.size()); // testing
+            System.out.println(Restaurant.menu.size()); // testing
+            if (i==correct){
+                System.out.println(index.get(i) + order);
+            }
+            else {
+                randomIndex = random.nextInt(menuCopy.size());
+                System.out.println(index.get(i) + menuCopy.get(randomIndex));
+                menuCopy.remove(menuCopy.get(randomIndex));
+            }
+        }
     }
 
     /**

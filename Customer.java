@@ -16,7 +16,7 @@ public class Customer{
     public String name;
     public Food order; 
     public Boolean hasQuestion; 
-    public Integer finalTip = 10;
+    public Integer finalTip;
     
      
 
@@ -29,10 +29,10 @@ public class Customer{
     public Customer(String name, Food order, Boolean hasQuestion) {
         
         //initialize residents to a new ArrayList<String>()
-        this.name = ""; 
-        this.order = "";
+        this.name = name; 
+        this.order = order;
         this.hasQuestion = false;
-        this.finalTip = finalTip;
+        this.finalTip = 10;
     }
 
     //accessors
@@ -43,18 +43,10 @@ public class Customer{
     */
 
 
-    public String order(){
-        //get random number of the length of Hashtable 
-        Random rand = new Random();
-        int randomOrder = rand.nextInt(15);
-
-        // access menu
-        String chosenFood = Restaurant.menu.get(randomOrder); 
-
+    public Food order(){
         // print customers order
-        System.out.println("Can I have " + chosenFood + "?");
-
-        return chosenFood;
+        System.out.println(this.name + ": I'll have the " + order.name + ".");
+        return order;
     }
 
 

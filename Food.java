@@ -17,8 +17,8 @@ public class Food{
     private Boolean hasGluten;
     /** boolean hasLacose */
     private Boolean hasLactose;
-    /** boolean double price */
-    public double price;
+    /** boolean int price */
+    public int price;
 
     // ADD INGREDIENT
     /**
@@ -26,10 +26,10 @@ public class Food{
      * @param string name
      * @param food category from FoodCategory
      * @param boolean isVegan, isVegetarian, isSpicy, hasGluten, hasLactose
-     * @param double price
+     * @param int price
      */
     public Food(String name, FoodCategory category, boolean isVegan, boolean isVegetarian,
-    boolean isSpicy, boolean hasGluten, boolean hasLactose, double price){
+    boolean isSpicy, boolean hasGluten, boolean hasLactose, int price){
         this.name = name;
         this.category = category;
         this.isVegan = isVegan;
@@ -93,9 +93,9 @@ public class Food{
     }
      /**
      * accessor for price
-     * @return double price
+     * @return int price
      */
-    public double getPrice(){
+    public int getPrice(){
         return this.price;
     }
      /**
