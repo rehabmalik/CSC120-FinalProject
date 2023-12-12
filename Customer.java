@@ -112,10 +112,7 @@ public class Customer{
     public String getName(){
         return this.name;
     }
-    
-    public void sit(Restaurant r){
-        r.enter(this);
-    }
+
 
     public Table getTable(){
         return this.table;
