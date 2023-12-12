@@ -98,7 +98,9 @@ public class Food{
     public double getPrice(){
         return this.price;
     }
-    
+     /**
+      * print the price of food
+      */
     public void print(){
         System.out.println(this.name + " costs " + this.price + " dollars.");
     }

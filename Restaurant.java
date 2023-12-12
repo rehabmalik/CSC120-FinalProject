@@ -23,11 +23,10 @@ public class Restaurant {
         this.tables = new ArrayList<Table>();
         this.menu = new ArrayList<Food>();
         
-
-
+        //customer
         this.customers = new ArrayList<Customer>();
 
-
+        //questions hashtable
         this.questions = new Hashtable<String, Boolean>();
         this.random = new Random();
         this.questions.put("Do you take debit cards?", random.nextBoolean());
@@ -42,7 +41,7 @@ public class Restaurant {
         this.questions.put("Do you have vegan dishes?", true);
         this.questions.put("Are there any drinks without alcohol?", true);
 
-
+        //questions keys
         this.questionKeys = new ArrayList<>();
         this.questionKeys.add("Do you take debit cards?");
         this.questionKeys.add("Do you have little spoons for babies?");
@@ -55,6 +54,7 @@ public class Restaurant {
         this.questionKeys.add("Do you have vegetarian dishes?");
         this.questionKeys.add("Do you have vegan dishes?");
         this.questionKeys.add("Are there any drinks without alcohol?");
+        
         
     }
      /**
@@ -77,24 +77,44 @@ public class Restaurant {
     public String getName(){
         return this.name;
     }
-
+     
+     /**
+      * adds food to menu
+      * @param food
+      */
     public void addToMenu(Food food){
         menu.add(food);
     }
-    
+
+     /**
+      * prints menu in the format of "-- costs $--"
+      */
     public void printMenu(){
         System.out.println("** " + this.getName() + "Menu! **");
         for (Food f: this.menu){
             f.print();
         }
     }
+     /**
+      * adds customer to the first vacant spot on a table
+      * @param customer
+      */
+    public void enter(Customer customer){
+        for (Table table : tables) {
+            try {
+                table.sitCustomer(customer);
+                System.out.println(customer.getName() + " seated at Table " + tables.indexOf(table));
+                // Customer seated successfully, break out of the loop
+                break;
+            } catch (RuntimeException e) {
+                // Table is full or customer is already seated, try the next table
+            }
+        }
+    }
 
-   // public void enter(Customer customer){
-   //     try {
-       
-       // }
-      //  this.customers.add(customer);
-  //  }
+    public void exit(Customer customer){
+        customer.getTable.removeCustomer(customer);
+    }
 
 
     public static void main(String[] args) {
