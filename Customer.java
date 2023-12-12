@@ -8,10 +8,11 @@ import java.util.Random;
 public class Customer{
 
     //attributes
-    public String name; //name of customer
-    public Food order;  //order of customer
-    public Boolean hasQuestion; //Boolean telling if the customer has a question
-    public Integer finalTip; //amount of final tip for the table
+    public String name;
+    public Food order; 
+    public Boolean hasQuestion; 
+    public Integer finalTip;
+    public Table table;
     
      
     /** 
@@ -20,9 +21,10 @@ public class Customer{
     *  @param order order of customer
     *  @param hasQuestion Boolean telling if the customer has a question
     *  @param finalTip amount of final tip
+    *  @param table table that the customer is sitting at
     */
  
-    public Customer(String name, Food order, Boolean hasQuestion, Integer finalTip) {
+    public Customer(String name, Food order, Boolean hasQuestion, Integer finalTip, Table table) {
         this.name = name; 
         this.order = order;
         this.hasQuestion = false;
@@ -101,4 +103,22 @@ public class Customer{
         //updates the amount of final tip
         finalTip = finalTip + amount;
     }
+ 
+    public Integer finalTip(){
+        //accessing the table's total tip 
+        return this.finalTip;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+    
+    public void sit(Restaurant r){
+        r.enter(this);
+    }
+
+    public Table getTable(){
+        return this.table;
+    }
+    
 }

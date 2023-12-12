@@ -59,7 +59,7 @@ public class Restaurant {
         
         
     }
-    
+
      /**
       * Overloaded constructor with the number of tables
       */
@@ -102,20 +102,20 @@ public class Restaurant {
       * adds customer to the first vacant spot on a table
       * @param customer
       */
-    public void enter(Customer customer, Table table){
-        try {
-            table.sitCustomer(customer);
+    public void enter(Customer customer, Table t){
+       try {
+            t.sitCustomer(customer);
             System.out.println(customer.getName() + " has been seated.");
-        } catch (RuntimeException e) {
-            // Table is full or customer is already seated, try the next table
             }
-        
-    }
+        catch (RuntimeException e) {
+                // Table is full or customer is already seated, try the next table
+            }
+        }
+    
 
-    // Don't think we need this, can be directly accessed from Customer
-    // public void exit(Customer customer){
-    //     Customer.getTable.removeCustomer(customer);
-    // }
+    public void exit(Customer customer){
+        this.customers.remove(customer);
+    }
 
 
     public static void main(String[] args) {

@@ -194,7 +194,7 @@ public class Waiter {
 
         // Weird bug - whenever I call enterOrder again it doesn't "reset"  
         // menuCopy so it just empties out until it throws a bound error
-        ArrayList<String> menuCopy= Restaurant.menuItems;  // Copy of menu items to prevent repeats
+        ArrayList<String> menuCopy = Restaurant.menuItems;  // Copy of menu items to prevent repeats
         menuCopy.remove(order);
 
         System.out.println("What did " + customerName + " order?");
