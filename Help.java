@@ -27,7 +27,6 @@ public class Help{
             for (String x: availableCommands) {
                 System.out.println(x);
             }
-            callCommand(scanner.nextLine());
         }
         else if (scanner.nextLine().equals("B")){
             /*prints all game rules */
@@ -38,24 +37,8 @@ public class Help{
         }
     }
 
-    public void callCommand(String command){
-        if (command.equals("Get Current Fuck Ups")){
-            Waiter.getCurrentFuckUps();
-        }
-         if (command.equals("Get Fuck Ups Left")){
-            Waiter.getFuckUpsLeft();
-        }
-         if (command.equals("Get Max Fuck Ups")){
-            Waiter.getMaxFuckUps();
-        }
-         if (command.equals("Get Tips")){
-            Waiter.getTips();
-        }
-        if (command.equals("View Menu")){
-            Waiter.viewMenu();
-        }
-    }
     public static void main(String[] args) {
         Help gameHelp = new Help();
+        gameHelp.help();
     }
 }

@@ -15,9 +15,7 @@ public class Customer{
     public Boolean hasQuestion; 
     public Integer finalTip;
     public Table table;
-    public Object getTable;
     
-     
 
     /** 
     *  Constructs a house using its parameters and initializes residents
@@ -74,10 +72,7 @@ public class Customer{
     public String getName(){
         return this.name;
     }
-    
-    public void sit(Restaurant r){
-        r.enter(this);
-    }
+
 
     public Table getTable(){
         return this.table;

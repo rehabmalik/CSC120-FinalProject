@@ -243,4 +243,34 @@ public class Waiter {
     public void serveFood(){
         System.out.println("The customers at this table have received their food.");
     }
+
+    public void help(){
+        Help h = new Help();
+        h.help();
+        callCommand(scanner.nextLine());
+    }
+
+    public void callCommand(String command){
+        if (command.equals("Get Current Fuck Ups")){
+            this.getCurrentFuckUps();
+        }
+        if (command.equals("Get Fuck Ups Left")){
+            this.getFuckUpsLeft();
+        }
+        if (command.equals("Get Max Fuck Ups")){
+            this.getMaxFuckUps();
+        }
+        if (command.equals("Get Tips")){
+            this.getTips();
+        }
+        if (command.equals("View Menu")){
+            this.viewMenu();
+        }
+    }
+
+
+    public static void main(String[] args) {
+        
+    }
+    
 }
