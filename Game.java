@@ -55,6 +55,7 @@ public class Game{
         ourRestaurant.printMenu();
         System.out.println("There's also a few things you should know about the restaurant.");
         ourRestaurant.printQuestions(); //need questions in restaurant, not here
+        //System.out.println(ourRestaurant.questions); --> based on Restaurant class. Could this be what you need?
 
         System.out.println("Don't be afraid to ask for help, but make sure you answer customers quickly! We wouldn't want to keep anyone waiting.");
         System.out.println("Hint: Type 'help' if you're not sure what to do next");
