@@ -110,16 +110,16 @@ public class Game{
     }
 
     public String setDifficulty(String difficulty){
-        while (!difficulty.equals("A") && !difficulty.equals("B") && !difficulty.equals("C")) {
+        while (!difficulty.equalsIgnoreCase("A") && !difficulty.equalsIgnoreCase("B") && !difficulty.equalsIgnoreCase("C")) {
             System.out.println("Game: Select difficulty: \n A. Easy \n B. Medium \n C. Difficult");
             difficulty = input.nextLine();
-            if (difficulty.equals("A")){
+            if (difficulty.equalsIgnoreCase("A")){
                 this.gameDifficulty = Difficulty.EASY;
             }
-            else if (difficulty.equals("B")){
+            else if (difficulty.equalsIgnoreCase("B")){
                 this.gameDifficulty = Difficulty.MEDIUM;
             }
-            else if (difficulty.equals("C")){
+            else if (difficulty.equalsIgnoreCase("C")){
                 this.gameDifficulty = Difficulty.DIFFICULT;
             }
             else {
@@ -174,7 +174,7 @@ public class Game{
         String sentence; // For player input
         Random random = new Random();
         int round = 0;
-        String difficulty="";
+        String difficulty = "";
 
         g.printBorder(25);
         
