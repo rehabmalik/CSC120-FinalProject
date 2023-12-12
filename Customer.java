@@ -1,7 +1,4 @@
 /* This is a stub for the Customer class */
-
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random; 
 
 /** 
@@ -18,6 +15,7 @@ public class Customer{
     public Boolean hasQuestion; 
     public Integer finalTip;
     public Table table;
+    public Object getTable;
     
      
 
@@ -27,14 +25,13 @@ public class Customer{
     */
 
     //constructor 
-    public Customer(String name, Food order, Boolean hasQuestion){ //Restaurant restaurant) {
+    public Customer(String name, Food order, Boolean hasQuestion) {
         
         //initialize residents to a new ArrayList<String>()
         this.name = name; 
         this.order = order;
         this.hasQuestion = false;
         this.finalTip = 10;
-      //  this.table = getTable(restaurant.enter(this));
     }
 
     //accessors
@@ -78,12 +75,12 @@ public class Customer{
         return this.name;
     }
     
-    public void sit(Table table){
-        table.customers.add(this);
+    public void sit(Restaurant r){
+        r.enter(this);
     }
 
-    //public void getTable(){
-     //   return this.table;
-    //}
+    public Table getTable(){
+        return this.table;
+    }
     
 }

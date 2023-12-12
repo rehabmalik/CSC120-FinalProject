@@ -112,9 +112,8 @@ public class Restaurant {
         }
     }
 
-    // Don't think we need this, can be directly accessed from Customer
     public void exit(Customer customer){
-        customer.getTable.removeCustomer(customer);
+        this.customers.remove(customer);
     }
 
 
