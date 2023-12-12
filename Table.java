@@ -1,13 +1,19 @@
 import java.util.ArrayList;
 
 public class Table{
+    /** arraylist of customers on table */
     ArrayList <Customer> customers;
+    /** capacity of table customers */
     final int nCustomers = 4;
     
     public Table(){
         this.customers = new ArrayList<Customer>();
     }
-
+    
+     /**
+      * adds customer to the arraylist of customers of table
+      * @param customer
+      */
     public void sitCustomer(Customer customer){
         if (this.customers.size() == 4){
             throw new RuntimeException("This table is full!");
@@ -19,7 +25,10 @@ public class Table{
 
         this.customers.add(customer);
     }
-
+    /**
+     * removes customer from the arraylist of customers on table
+     * @param customer
+     */
     public void removeCustomer(Customer customer){
         if (this.customers == null){
             throw new RuntimeException("This table is empty!");
@@ -31,5 +40,18 @@ public class Table{
 
         this.customers.remove(customer);
     }
-
+    /**
+     * adds and returns the tips of the customers on the table
+     * @return int total tip
+     */
+    public int totalTip(){
+        int totalTip = 0;
+        if (this.customers.isEmpty()){
+            throw new RuntimeException("This table is empty!");
+        }
+        for (Customer customer: this.customers){
+            totalTip += customer.finalTip;
+        }
+        return totalTip;
+    }
 }

@@ -60,35 +60,35 @@ public class Food{
      * accessor for whether it is vegan
      * @return boolean isVegan
      */
-    public Boolean getIsVegan(){
+    public Boolean isVegan(){
         return this.isVegan;
     }
      /**
      * accessor for whether is is vegetarian
      * @return boolean isVegetarian
      */
-    public Boolean getIsVegetarian(){
+    public Boolean isVegetarian(){
         return this.isVegetarian;
     }
      /**
      * accessor for whether is is spciy
      * @return boolean isSpicy
      */
-    public Boolean getIsSpicy(){
+    public Boolean isSpicy(){
         return this.isSpicy;
     }
       /**
      * accessor for whether it has gluten
      * @return boolean hasGluten
      */
-    public Boolean getHasGluten(){
+    public Boolean hasGluten(){
         return this.hasGluten;
     }
      /**
      * accessor for whether it has lactose
      * @return boolean hasGluten
      */
-    public Boolean getHasLactose(){
+    public Boolean hasLactose(){
         return this.hasLactose;
     }
      /**
@@ -98,13 +98,15 @@ public class Food{
     public double getPrice(){
         return this.price;
     }
-     //problem with toString
-    public String toString(){
-        return this.name + "costs: " + this.price + ".";
+     /**
+      * print the price of food
+      */
+    public void print(){
+        System.out.println(this.name + " costs " + this.price + " dollars.");
     }
 
     public static void main(String[] args) {
         Food ab = new Food ("ab", FoodCategory.DRINK, false, false, false, false, false, 2);
-        ab.toString();
+        ab.print();
     }
 }

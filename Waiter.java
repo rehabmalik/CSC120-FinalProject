@@ -160,7 +160,7 @@ public class Waiter {
                 Customer.tip(amount);
             }
             else{
-                System.out.println(Customer.name + ": Okay. Thank you.");
+                System.out.println(Customer.getName() + ": Okay. Thank you.");
             }
         }
         
