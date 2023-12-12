@@ -19,6 +19,7 @@ public class Restaurant {
     /** arraylist of customer questions */
     static ArrayList <String> questionKeys;
 
+
     /** Defualt constructor for restaurant */
     public Restaurant (String name){
         Restaurant.name = name;
@@ -58,6 +59,7 @@ public class Restaurant {
         
         
     }
+
      /**
       * Overloaded constructor with the number of tables
       */
@@ -123,5 +125,4 @@ public class Restaurant {
         ab.toString();
        // myRestaurant.printMenu();
     }
-
 }
