@@ -113,7 +113,6 @@ public class Customer{
         return this.name;
     }
 
-
     public Table getTable(){
         return this.table;
     }
