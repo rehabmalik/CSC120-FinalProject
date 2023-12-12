@@ -109,7 +109,7 @@ public class Restaurant {
                 // Table is full or customer is already seated, try the next table
             }
         }
-    }
+    
 
     public void exit(Customer customer){
         this.customers.remove(customer);
