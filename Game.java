@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Random;
@@ -8,17 +9,29 @@ public class Game{
     static Restaurant ourRestaurant;
     Hashtable <String, Boolean> questions;
     static Waiter player;
+    static ArrayList<String> customerNames = new ArrayList<String>();
 
     /** Game constructor */
     public Game(){
         // want to make # of tables change with difficulty perhaps
         ourRestaurant = new Restaurant("The Restaurant man idk", 3); 
         this.questions = new Hashtable <String, Boolean>() ;
-        this.questions.questions();
+        questions(this.questions);
+        addCustomerNames(customerNames);
+    }
+
+    /** 
+     * Adds names to list of possible Customer names
+     * @param c list of names
+     */
+    public void addCustomerNames(ArrayList<String> c){
+        c.add("Karen");
+        c.add("Derek");
+        c.add("null")
     }
 
     /** Randomly assigns answer to list of questions */
-    // Should move this code to the Restaurant class
+    // Can move this code to the Restaurant class
     public void questions(Hashtable<String, Boolean> q){
         Random random = new Random();
         q.put("Do you take debit cards?",random.nextBoolean());
@@ -28,6 +41,9 @@ public class Game{
         q.put("Does this restaurant do take out?",random.nextBoolean());
         q.put("Is smoking inside allowed?",random.nextBoolean());
         q.put("Are pets allowed in?",random.nextBoolean());
+        q.put("Do you have vegetarian dishes?", true);
+        q.put("Do you have vegan dishes?", true);
+        q.put("Are there non-alcoholic drinks?", true);
     }
 
     /**  */
@@ -60,6 +76,7 @@ public class Game{
         System.out.println("Hint: Type 'help' if you're not sure what to do next");
         System.out.println("Alright, time for your first table!");
 
+        Table table1 = new Table();
         
     }
 }
