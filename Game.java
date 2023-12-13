@@ -22,7 +22,6 @@ public class Game{
         this.questions = new Hashtable <String, Boolean>() ;
         addCustomerNames(customerNames);
         player = new Waiter("", "");
-        addMenuItems(Restaurant.menu, Restaurant.menuItems);
     }
 
     /** 
@@ -44,32 +43,60 @@ public class Game{
         c.add("Himiko");
     }
 
-    public void addMenuItems(ArrayList <Food> menu, ArrayList<String> menuItems){
-        menu.add(new Food("California Roll", FoodCategory.MAIN, false, false, false, false, false, 15));
-        menu.add(new Food("Japanese Curry", FoodCategory.MAIN, true, true, false, false, false, 15));
-        menu.add(new Food("Moussaka", FoodCategory.MAIN, false, false, false, true, true, 15));
-        menu.add(new Food("Biryani", FoodCategory.MAIN, false, false, true, false, false, 15));
-        menu.add(new Food("Tahchin", FoodCategory.MAIN, false, true, false, false, true, 15));
-        menu.add(new Food("Chana Chaat", FoodCategory.MAIN, true, true, false, false, false, 15));
-        menu.add(new Food("Katsudon", FoodCategory.MAIN, false, false, false, true, false, 15));
-        menu.add(new Food("Tempura Udon", FoodCategory.MAIN, false, true, false, true, false, 15));
-        menu.add(new Food("Matcha Sundae", FoodCategory.DESSERT, false, true, false, true, true, 10));
-        menu.add(new Food("Trigona", FoodCategory.DESSERT, false, true, false, true, true, 10));
-        menu.add(new Food("Kulfa Falooda", FoodCategory.DESSERT, false, true, false, false, true, 10));
-        menu.add(new Food("Baklava", FoodCategory.DESSERT, false, true, false, true, true, 10));
-        menu.add(new Food("Fereni", FoodCategory.DESSERT, false, true, false, false, true, 10));
-        menu.add(new Food("Water", FoodCategory.DRINK, true, true, false, false, false, 0));
-        menu.add(new Food("Lassi", FoodCategory.DRINK, false, true, false, false, true, 5));
-        menu.add(new Food("Tea", FoodCategory.DRINK, true, true, false, false, false, 5));
-        menu.add(new Food("Beer", FoodCategory.DRINK, true, true, false, true, false, 7));
-        menu.add(new Food("Sake", FoodCategory.DRINK, true, true, false, false, false, 7));
-        for (int i=0; i<menu.size(); i++){
-            menuItems.add(menu.get(i).name);
+    /**
+     * Prints border with inputted length
+     * @param n length of border
+     */
+    public static void printBorder(int n){
+        System.out.println("~ " + "-".repeat(n) + " ~");
+    }
+
+    /**
+     * Prints text and waits for user input to move to next line
+     * @param s text to be printed
+     */
+    public static void printDialogue(String s){
+        System.out.print(s);
+        input.nextLine();
+    }
+
+    /** Sets difficulty to a user inputted value */
+    public void setDifficulty(){
+        String difficulty = "";
+        while (!difficulty.equalsIgnoreCase("A") && !difficulty.equalsIgnoreCase("B") && !difficulty.equalsIgnoreCase("C")) {
+            System.out.println("Game: Select difficulty: \n A. Easy \n B. Medium \n C. Difficult");
+            difficulty = input.nextLine();
+            if (difficulty.equalsIgnoreCase("A")){
+                this.gameDifficulty = Difficulty.EASY;
+                tip = 0;
+            }
+            else if (difficulty.equalsIgnoreCase("B")){
+                this.gameDifficulty = Difficulty.MEDIUM;
+                tip = -3;
+            }
+            else if (difficulty.equalsIgnoreCase("C")){
+                this.gameDifficulty = Difficulty.DIFFICULT;
+                tip = -5;
+            }
+            else {
+                System.out.println("Game: Choose one of the given options.");
+            }
         }
     }
 
-    public static void printBorder(int n){
-        System.out.println("~ " + "-".repeat(n) + " ~");
+    /** Fires player and ends game */
+    public static void fired(){
+        printDialogue("Manager: You've fucked up too many times. Take your tips and get out!");
+        printDialogue(player.name + ": Damn. Guess I'll have to find another place to work...");
+        endGame();
+    }
+
+    /** Ends game, gives ending dialogue */
+    public static void endGame(){
+        printBorder(30);
+        printDialogue("Game: You made a total of $" + player.tips);
+        printDialogue("      Thank you for playing!");
+        System.exit(0);
     }
 
     /**
@@ -97,30 +124,11 @@ public class Game{
         }
     }
 
-    public String setDifficulty(String difficulty){
-        while (!difficulty.equalsIgnoreCase("A") && !difficulty.equalsIgnoreCase("B") && !difficulty.equalsIgnoreCase("C")) {
-            System.out.println("Game: Select difficulty: \n A. Easy \n B. Medium \n C. Difficult");
-            difficulty = input.nextLine();
-            if (difficulty.equalsIgnoreCase("A")){
-                this.gameDifficulty = Difficulty.EASY;
-                tip = 0;
-            }
-            else if (difficulty.equalsIgnoreCase("B")){
-                this.gameDifficulty = Difficulty.MEDIUM;
-                tip = -3;
-            }
-            else if (difficulty.equalsIgnoreCase("C")){
-                this.gameDifficulty = Difficulty.DIFFICULT;
-                tip = -5;
-            }
-            else {
-                System.out.println("Game: Choose one of the given options.");
-            }
-        }
-        return difficulty;
-    }
-
-    public void fullTable(int round) throws InterruptedException {
+    /**
+     * Runs a round of the game, seats and serves a table
+     * @param round
+     */
+    public void fullTable(int round) {
         Table table = new Table();
         sentence = input.nextLine().toLowerCase();
 
@@ -208,36 +216,14 @@ public class Game{
         printDialogue(player.name + ": I got $" + table.totalTip + " in tips from that table. I've earned $" + player.tips + " today!");
     }
 
-    /**
-     * Prints text and waits for user input to move to next line
-     * @param s text to be printed
-     */
-    public static void printDialogue(String s){
-        System.out.print(s);
-        input.nextLine();
-    }
-
-    public static void fired(){
-        printDialogue("Manager: You've fucked up too many times. Take your tips and get out!");
-        printDialogue(player.name + ": Damn. Guess I'll have to find another place to work...");
-        endGame();
-    }
-
-    public static void endGame(){
-        printBorder(30);
-        printDialogue("Game: You made a total of $" + player.tips);
-        printDialogue("      Thank you for playing!");
-        System.exit(0);
-    }
     public static void main(String[] args) throws InterruptedException {
         input = new Scanner(System.in);
         Game g = new Game();
         int round = 0;
-        String difficulty = "";
 
         Game.printBorder(25);
         
-        difficulty = g.setDifficulty(difficulty);
+        g.setDifficulty();
 
         Game.printBorder(75);
 

@@ -189,8 +189,8 @@ public class Waiter {
 
         // Copy of menu items to prevent repeats
         ArrayList<String> menuCopy = new ArrayList<String>();  
-        for (String i : Restaurant.menuItems){
-            menuCopy.add(i);
+        for (int i=0; i<Restaurant.menu.size(); i++){
+            menuCopy.add(Restaurant.menu.get(i).name);
         }
         menuCopy.remove(order);
 
@@ -227,6 +227,7 @@ public class Waiter {
 
     /**
      * Checks the questions hashtable and returns the correct answer, if the player still has a chance left
+     * @param question question being asked
      */
     private void askKitchen(String question){
         if (askKitchenCount < 1) {
@@ -247,7 +248,6 @@ public class Waiter {
     public void viewMenu(){
         Restaurant.printMenu();
     }
-
 
     /**
      * Serves food to the customer
@@ -302,9 +302,7 @@ public class Waiter {
         }
     }
 
-
     public static void main(String[] args) {
         
     }
-    
 }
