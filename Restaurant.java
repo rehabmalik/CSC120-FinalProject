@@ -98,6 +98,19 @@ public class Restaurant {
             f.print();
         }
     }
+
+    /** Prints questions in a readable format */
+    public void printQuestions(){
+        for (int i = 0; i<Restaurant.questionKeys.size(); i++){
+            if (questions.get(Restaurant.questionKeys.get(i)) == true) {
+                System.out.println(Restaurant.questionKeys.get(i) + " Yes.");
+            }
+            else {
+                System.out.println(Restaurant.questionKeys.get(i) + " No.");
+            }
+        }
+    }
+
      /**
       * adds customer to the first vacant spot on a table
       * @param customer
@@ -105,7 +118,7 @@ public class Restaurant {
     public void enter(Customer customer, Table t){
        try {
             t.sitCustomer(customer);
-            System.out.println(customer.getName() + " has been seated.");
+            System.out.println("      " + customer.getName() + " has been seated.");
             }
         catch (RuntimeException e) {
                 // Table is full or customer is already seated, try the next table

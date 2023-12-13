@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.text.DefaultEditorKit.CutAction;
 
 public class Waiter {
     Scanner scanner = new Scanner(System.in);
@@ -17,7 +20,7 @@ public class Waiter {
     /**
      * Amount of tips the player currently has
      */
-    private int tips;
+    public int tips;
 
     /**
      * Current no. of times the player has fucked up
@@ -107,42 +110,28 @@ public class Waiter {
     }
 
     /**
-     * Outputs a message to welcome the customer and seat guests at table.
-     */
-    public void welcome(){
-        System.out.println(this.name + ": Welcome to " + Restaurant.name + "! Your table is right this way.");
-    }
-
-    /**
-     * Outputs a message to greet the customer and prompt them to begin their order.
-     */
-    public void greet(){
-        System.out.println(this.name + ": Hello! My name is " + this.name + ". What can I get started for you today?");
-    }
-
-    /**
      * Allows the player to answer the customer's question, and adjusts tips, no. of times they have fucked up accordingly. Allows user to ask the kitchen, if they have chances available.
      * @param question The customer's question
      * @param amount Amount the tip must be decremented by
      */
-    public void answerQuestion(String question, int amount){
-        System.out.println("Game: Choose your answer: \n" + "A. Yes\n" + "B. No\n" + "C. I'm not sure, let me double check that. \n");
+    public void answerQuestion(String question, int amount, Customer customer){
+        System.out.println("Game: Choose your answer: \n" + "A. Yes\n" + "B. No\n" + "C. I'm not sure, let me double check that.");
         String answer = scanner.nextLine();
 
         if (answer.equalsIgnoreCase("C")){
-            System.out.println(this.name + ": I'm not sure, let me double check that.");
-            System.out.println("Game: Would you like to ask the kitchen?\n" + "A. Yes\n" + "B. No\n");
+            Game.printDialogue(this.name + ": I'm not sure, let me double check that.");
+            System.out.println("Game: Would you like to ask the kitchen?\n" + "A. Yes\n" + "B. No");
             String askKitchenChoice = scanner.nextLine();
             if(askKitchenChoice.equalsIgnoreCase("A")){
                 askKitchen(question);
             }
             
             else if(askKitchenChoice.equalsIgnoreCase("B")){
-                answerQuestion(question, amount);
+                answerQuestion(question, amount, customer);
             }
 
            else if (askKitchenChoice.equalsIgnoreCase("help")){
-                gameHelp.help();
+                //gameHelp.help();
             } 
             
             else {
@@ -152,29 +141,33 @@ public class Waiter {
 
         else if (answer.equalsIgnoreCase("A") || answer.equalsIgnoreCase("B")){
             if (answer.equalsIgnoreCase("A")){
-                System.out.println(this.name + "Yes");
+                Game.printDialogue(this.name + ": Yes");
             }
-            else if (answer.equalsIgnoreCase("B")){
-                System.out.println(this.name + "No");
+            else {
+                Game.printDialogue(this.name + ": No");
             }
 
-            if (!(answer.equalsIgnoreCase(Restaurant.questions.get(question)))){
-                System.out.println("Game: You were wrong. The customer reported you to the manager.");
+            if ((Restaurant.questions.get(question) && answer.equalsIgnoreCase("B")) || 
+                (!Restaurant.questions.get(question) && answer.equalsIgnoreCase("A"))) {
+                Game.printDialogue("Game: You were wrong. The customer reported you to the manager.");
                 this.currentFuckUps += 1;
                 this.fuckUpsLeft = this.maxFuckUps - this.currentFuckUps;
-                System.out.println("Manager: How did you not know that? I'd better not get any more complaints. You only have " + fuckUpsLeft + " fuck ups left.");
-                Customer.tip(amount);
+                if (this.fuckUpsLeft==0){
+                    Game.fired();
+                }
+                Game.printDialogue("Manager: How did you not know that? I'd better not get any more complaints. You only have " + fuckUpsLeft + " fuck ups left.");
+                customer.tip(amount);
             }
             else{
-                System.out.println(Customer.getName() + ": Okay. Thank you.");
+                Game.printDialogue(customer.getName() + ": Okay. Thank you.");
             }
         }
         
         if (answer.equalsIgnoreCase("help")){
-            gameHelp.help();
+            //gameHelp.help();
         }
         else {
-            System.out.println("Choose one of the given options.");
+            Game.printDialogue("Choose one of the given options.");
         }
     }
 
@@ -182,8 +175,9 @@ public class Waiter {
      * Prompts user to pick the correct order from a list of menu items
      * @param order String
      * @param customerName String
+     * @return boolean if waiter picked correctly
      */
-    public void enterOrder(String order, String customerName){
+    public Boolean enterOrder(String order, String customerName){ 
         // how do i randomly assign A,B,C,D to the menu items, so the correct option is not always D
         // fixed
         // List of answer indeces
@@ -218,12 +212,17 @@ public class Waiter {
         menuCopy.clear();
 
         String answer = scanner.nextLine().toUpperCase();
+
+        while (!(answer.equals("A") || answer.equals("B") || answer.equals("C") || answer.equals("D"))){
+            System.out.println("Game: Choose one of the given options.");
+            answer = scanner.nextLine().toUpperCase();
+        }
+
+        Boolean answerWasCorrect = false;
         if(index.get(correct).contains(answer)){
-            System.out.println("Yep");
+            answerWasCorrect = true;
         }
-        else if (answer.equals("A") || answer.equals("B") || answer.equals("C") || answer.equals("D")){
-            System.out.println("Nope");
-        }
+        return answerWasCorrect;
     }
 
     /**
@@ -231,12 +230,14 @@ public class Waiter {
      */
     private void askKitchen(String question){
         if (askKitchenCount < 1) {
-            System.out.println("Game: Entering Kitchen......\n" + "Chef: What do you want " +this.name + "?\n" + this.name + ": " + question);
-            System.out.println("Chef: " + Restaurant.questions.get(question));
+            Game.printDialogue("Game: Entering Kitchen......");
+            Game.printDialogue("Chef: What do you want " + this.name + "?");
+            Game.printDialogue(this.name + ": " + question);
+            Game.printDialogue("Chef: " + Restaurant.questions.get(question));
         }
 
         else {
-            System.out.println("Chef: Get out. You've already asked me a question, let me do my job. ");
+            Game.printDialogue("Chef: Get out. You've already asked me a question, let me do my job. ");
         }
     }
     
@@ -250,9 +251,31 @@ public class Waiter {
 
     /**
      * Serves food to the customer
+     * @param correctOrders boolean list if customers order is correct
+     * @param t current table
+     * @param tip how much tip will be reduced for mistakes
      */
-    public void serveFood(){
-        System.out.println("The customers at this table have received their food.");
+    public void serveFood(ArrayList<Boolean> correctOrders, Table t, int tip){
+        Random random = new Random();
+        int randomInt;
+        for (int i = 0; i<t.customers.size(); i++){
+            if (correctOrders.get(i)){
+                randomInt = random.nextInt(Customer.posResponses.size());
+                Game.printDialogue(t.customers.get(i).name + ": " + Customer.posResponses.get(randomInt));
+            }
+            else {
+                randomInt = random.nextInt(Customer.negResponses.size());
+                Game.printDialogue(t.customers.get(i).name + ": " + Customer.negResponses.get(randomInt));
+                this.currentFuckUps += 1;
+                this.fuckUpsLeft = this.maxFuckUps - this.currentFuckUps;
+                if (this.fuckUpsLeft==0){
+                    Game.fired();
+                }
+                Game.printDialogue("Manager: How did you get someone's order wrong? You'd better start paying more attention. You only have " + fuckUpsLeft + " fuck ups left.");
+                t.customers.get(i).tip(tip);
+            }
+        }
+        Game.printDialogue("Game: All of the customers at this table have been served.");
     }
 
     public void help(){

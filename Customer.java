@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random; 
 
 /** 
@@ -13,8 +14,9 @@ public class Customer{
     public Boolean hasQuestion; 
     public Integer finalTip;
     public Table table;
+    static ArrayList<String> posResponses = new ArrayList<String>();
+    static ArrayList<String> negResponses = new ArrayList<String>();
     
-     
     /** 
     *  Constructs a customer
     *  @param name name of customer
@@ -27,10 +29,23 @@ public class Customer{
     public Customer(String name, Food order, Boolean hasQuestion, Integer finalTip, Table table) {
         this.name = name; 
         this.order = order;
-        this.hasQuestion = false;
+        this.hasQuestion = hasQuestion;
         this.finalTip = 10;
+        setAnswers();
     }
 
+    public void setAnswers(){
+        posResponses.add("Thank you! Looks delicious.");
+        posResponses.add("Smells delicious.");
+        posResponses.add("Thanks!");
+        posResponses.add("Wow, it arrived so quickly!");
+        posResponses.add("Thank you, it looks just like how my mom makes it!");
+        negResponses.add("This isn't what I ordered! Unbelievable.");
+        negResponses.add("Huh? I thought I ordered something else...");
+        negResponses.add("Um, I think you got my order wrong.");
+        negResponses.add("Get me your manager! This isn't what I ordered.");
+        negResponses.add("Why are you giving me this? I ordered something else.");
+    }
 
     /** 
     *  accessors
@@ -61,7 +76,7 @@ public class Customer{
 
     public Food order(){
         //print customers order
-        System.out.println(this.name + ": I'll have the " + order.name + ".");
+        Game.printDialogue(this.name + ": I'll have the " + order.name + ".");
         return order;
     }
 
@@ -72,8 +87,8 @@ public class Customer{
     *  @param table table that the customer will sit 
     */
 
-    public void sit(Table table){
-        table.customers.add(this);
+    public void sit(Table t){
+        t.customers.add(this);
     }
 
 
@@ -103,16 +118,6 @@ public class Customer{
         //updates the amount of final tip
         finalTip = finalTip + amount;
     }
- 
-    public Integer finalTip(){
-        //accessing the table's total tip 
-        return this.finalTip;
-    }
-
-    public String getName(){
-        return this.name;
-    }
-
 
     public Table getTable(){
         return this.table;
