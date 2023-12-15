@@ -212,7 +212,7 @@ public class Game{
         player.serveFood(correctOrder, table, tip);
 
         player.tips += table.totalTip();
-        printDialogue("Game: Your table finished their meal.");
+        printDialogue("Game: Your table finished their maeal.");
         printDialogue(player.name + ": I got $" + table.totalTip + " in tips from that table. I've earned $" + player.tips + " today!");
     }
 
