@@ -2,8 +2,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
-// import java.util.concurrent.TimeUnit; if I need delays
 
+/** Game Class */
 public class Game{
     Difficulty gameDifficulty;
     static Restaurant ourRestaurant;
@@ -14,6 +14,7 @@ public class Game{
     String sentence;
     public static Scanner input;
     int tip;
+    public static ArrayList<String> playerNames = new ArrayList<String>();
 
     /** Game constructor */
     public Game(){
@@ -84,6 +85,17 @@ public class Game{
         }
     }
 
+    /** Checks name for repeaters */
+    public static void checkName(String name){
+        if (playerNames.contains(player.name)){
+            System.out.println("Welcome back, "+ player.name + "!\nYou are hired again!\n");
+        }
+        else {
+            playerNames.add(player.name);
+        }
+    }
+    
+
     /** Fires player and ends game */
     public static void fired(){
         printDialogue("Manager: You've fucked up too many times. Take your tips and get out!");
@@ -138,6 +150,11 @@ public class Game{
             printDialogue("Game: Your guests feel welcomed.");
             table.totalTip+=1;
         }
+
+        if (sentence.equalsIgnoreCase("help")){
+            Help.help();
+        }
+
         else{
             printDialogue(player.name + ": Your table is right this way.");
             printDialogue("Game: Your guests seem dissapointed that they didn't get a warm welcome.");
@@ -150,6 +167,9 @@ public class Game{
         // Greet table
         if (sentence.contains("greet")){
             printDialogue(player.name + ": Hello! My name is " + player.name + ". What can I get started for you today?");
+        }
+        if (sentence.equalsIgnoreCase("help")){
+            Help.help();
         }
         else{
             printDialogue(player.name + ": What would you like to order?");
@@ -180,6 +200,9 @@ public class Game{
         sentence = input.nextLine().toLowerCase();
 
         // Enter order
+        if (sentence.equalsIgnoreCase("help")){
+            Help.help();
+        }
         while (!sentence.contains("enter")){
             System.out.println("Manager: Didn't you just take your table's order? You should have entered it by now!");
             sentence = input.nextLine().toLowerCase();
@@ -196,16 +219,24 @@ public class Game{
                 correctOrder.add(player.enterOrder(c.order.name, c.name));
             }
         }
+        else if (sentence.equalsIgnoreCase("help")){
+            Help.help();
+        }
         printBorder(30);
 
         System.out.println("Chef: Order up! " + player.name + ", go serve your table!");
-
         sentence = input.nextLine().toLowerCase();
+        if (sentence.equalsIgnoreCase("help")){
+            Help.help();
+        }
 
         // Serve food
         while (!sentence.contains("serve")){
             System.out.println("Chef: Oy, " + player.name + "! Serve the food before it goes cold!");
             sentence = input.nextLine().toLowerCase();
+            if (sentence.equalsIgnoreCase("help")){
+            Help.help();
+            }
         }
 
         printDialogue(player.name + ": Here's your food! Enjoy your meal.");
@@ -229,7 +260,8 @@ public class Game{
 
         System.out.println("Manager: Welcome to " + ourRestaurant.getName() + "! I'm your new manager. What's your name?");
         System.out.println("Game: Type in a response whenever you are given a new line.");
-        player.name = input.nextLine();
+        player.name = input.nextLine(); 
+        Game.checkName(player.name);
         System.out.println(player.name + ": My name is " + player.name + "!");
         printDialogue("Game: Press enter to move to next line of dialogue.");
         printDialogue("Manager: We're happy to have you on the team, " + player.getName() + ". You'll be a great waiter in no time!");

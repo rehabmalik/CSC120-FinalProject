@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
-import javax.swing.text.DefaultEditorKit.CutAction;
-
+/** Waiter Class */
 public class Waiter {
     Scanner scanner = new Scanner(System.in);
     /**
@@ -131,11 +129,11 @@ public class Waiter {
             }
 
            else if (askKitchenChoice.equalsIgnoreCase("help")){
-                //gameHelp.help();
+                Help.help();
             } 
             
             else {
-                System.out.println("Game: Choose one of the given options.");
+                System.out.println("");
             }
         }
 
@@ -164,10 +162,10 @@ public class Waiter {
         }
         
         if (answer.equalsIgnoreCase("help")){
-            //gameHelp.help();
+            Help.help();
         }
         else {
-            Game.printDialogue("Choose one of the given options.");
+            Game.printDialogue("");
         }
     }
 
@@ -246,7 +244,7 @@ public class Waiter {
      * Allows the player to view the menu
      */
     public void viewMenu(){
-        Restaurant.printMenu();
+        //Restaurant.printMenu();
     }
 
     /**

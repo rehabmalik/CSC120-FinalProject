@@ -1,11 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random; 
 
-/** 
- *  This is the Customer class
- *  Customers are contained in Table which is contained in Restaurant
- */ 
- 
+/** Customer class */ 
 public class Customer{
 
     //attributes
@@ -48,7 +44,6 @@ public class Customer{
     }
 
     /** 
-    *  accessors
     *  Returns the name of the customer 
     *  @return name : name of the customer
     */
