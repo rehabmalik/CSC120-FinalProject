@@ -1,12 +1,8 @@
-import java.util.ArrayList;
-
 public class Food{
     /** Food name */
     public String name;
     /** Food category from MAIN, DESSERT, DRINK */
     public FoodCategory category;
-    /** Tbd */
-    private ArrayList <String> ingredients;
     /** boolean isVegan */
     private Boolean isVegan;
     /** boolean isVegetarian */
@@ -49,12 +45,6 @@ public class Food{
      /** accessor for category */
     public FoodCategory getCategory(){
         return this.category;
-    }
-     /** accessor for ingredients */
-    public void getIngredients(){
-        for (String s: this.ingredients){ //for p in the arraylist
-            System.out.println("- " + s);
-        }
     }
      /**
      * accessor for whether it is vegan
