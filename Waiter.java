@@ -11,11 +11,6 @@ public class Waiter {
     String name;
 
     /**
-     * Name of the player's date
-     */
-    String dateName;
-
-    /**
      * Amount of tips the player currently has
      */
     public int tips;
@@ -51,9 +46,8 @@ public class Waiter {
      * @param dateName
      */
 
-    public Waiter(String name, String dateName){
+    public Waiter(String name){
         this.name = name;
-        this.dateName = dateName;
         this.tips = 0;
         this.currentFuckUps = 0;
         this.fuckUpsLeft = 3;
@@ -65,14 +59,6 @@ public class Waiter {
      */
     public String getName(){
         return this.name;
-    }
-
-    /** 
-     * Returns the waiter's date's name
-     * @return dateName
-     */
-    public String getDateName(){
-        return this.dateName;
     }
 
      /**
@@ -115,13 +101,15 @@ public class Waiter {
     public void answerQuestion(String question, int amount, Customer customer){
         System.out.println("Game: Choose your answer: \n" + "A. Yes\n" + "B. No\n" + "C. I'm not sure, let me double check that.");
         String answer = scanner.nextLine();
-
+        // if the player is unsure
         if (answer.equalsIgnoreCase("C")){
             Game.printDialogue(this.name + ": I'm not sure, let me double check that.");
             System.out.println("Game: Would you like to ask the kitchen?\n" + "A. Yes\n" + "B. No");
             String askKitchenChoice = scanner.nextLine();
             if(askKitchenChoice.equalsIgnoreCase("A")){
                 askKitchen(question);
+                 Game.printDialogue(customer + ": So?");
+                 answerQuestion(question, amount, customer);
             }
             
             else if(askKitchenChoice.equalsIgnoreCase("B")){
@@ -137,6 +125,7 @@ public class Waiter {
             }
         }
 
+        // if the player chooses to answer
         else if (answer.equalsIgnoreCase("A") || answer.equalsIgnoreCase("B")){
             if (answer.equalsIgnoreCase("A")){
                 Game.printDialogue(this.name + ": Yes");
@@ -232,7 +221,12 @@ public class Waiter {
             Game.printDialogue("Game: Entering Kitchen......");
             Game.printDialogue("Chef: What do you want " + this.name + "?");
             Game.printDialogue(this.name + ": " + question);
-            Game.printDialogue("Chef: " + Restaurant.questions.get(question));
+            if (Restaurant.questions.get(question)) {
+                Game.printDialogue("Chef: Yeah");
+            }
+            else {
+                Game.printDialogue("Chef: No");
+            }
         }
 
         else {
