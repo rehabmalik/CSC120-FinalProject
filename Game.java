@@ -266,18 +266,6 @@ public class Game{
         printDialogue("Game: Press enter to move to next line of dialogue.");
         printDialogue("Manager: We're happy to have you on the team, " + player.getName() + ". You'll be a great waiter in no time!");
 
-        // Add later?
-        /* System.out.println("Manager: First, take a look at the menu. Make sure you read it over carefully.");
-        TimeUnit.SECONDS.sleep(3); // wait 3 seconds
-        g.printBorder(70);
-        ourRestaurant.printMenu();
-        g.printBorder(70);
-        TimeUnit.SECONDS.sleep(1); // wait 10 seconds   EDIT THIS BACK
-        // MOVE AFTER 1ST TABLE
-        System.out.println("Manager: There's also a few questions you should be able to answer.");
-        //ourRestaurant.printQuestions(); //need questions in restaurant, not here
-        System.out.println(ourRestaurant.questions); //--> based on Restaurant class. Could this be what you need?  */
-
         printDialogue("Manager: Let's go over what to do when a table arrives."); 
         System.out.println("         First, *welcome* guests when they arrive!");
         System.out.println("         Next, *greet* your table once they've all sat down and take their order.");
