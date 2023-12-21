@@ -5,16 +5,17 @@ import java.util.Random;
 
 /** Game Class */
 public class Game{
-    Difficulty gameDifficulty;
-    static Restaurant ourRestaurant;
-    Hashtable <String, Boolean> questions;
-    static Waiter player;
-    static ArrayList<String> customerNames = new ArrayList<String>();
-    Random random = new Random();
-    String sentence;
+    public Difficulty gameDifficulty;
+    private static Restaurant ourRestaurant;
+    public Hashtable <String, Boolean> questions;
+    private static Waiter player;
+    private static ArrayList<String> customerNames = new ArrayList<String>();
+    private Random random = new Random();
+    private String sentence;
     public static Scanner input;
-    int tip;
+    private int tip;
     public static ArrayList<String> playerNames = new ArrayList<String>();
+    public static int round;
 
     /** Game constructor */
     public Game(){
@@ -22,7 +23,8 @@ public class Game{
         ourRestaurant = new Restaurant("The Silky Spoon"); 
         this.questions = new Hashtable <String, Boolean>() ;
         addCustomerNames(customerNames);
-        player = new Waiter("", "");
+        player = new Waiter("");
+        round = 0;
     }
 
     /** 
@@ -58,55 +60,72 @@ public class Game{
      */
     public static void printDialogue(String s){
         System.out.print(s);
-        input.nextLine();
+        s=input.nextLine();
+        if (s.toLowerCase().contains("help")){
+            Help.help();
+        }
     }
 
     /** Sets difficulty to a user inputted value */
     public void setDifficulty(){
         String difficulty = "";
+        System.out.println("Game: Select difficulty: \n A. Easy \n B. Medium \n C. Difficult");
+        difficulty = input.nextLine();
         while (!difficulty.equalsIgnoreCase("A") && !difficulty.equalsIgnoreCase("B") && !difficulty.equalsIgnoreCase("C")) {
+            System.out.println("Game: Choose one of the given options.");
             System.out.println("Game: Select difficulty: \n A. Easy \n B. Medium \n C. Difficult");
             difficulty = input.nextLine();
-            if (difficulty.equalsIgnoreCase("A")){
-                this.gameDifficulty = Difficulty.EASY;
-                tip = 0;
-            }
-            else if (difficulty.equalsIgnoreCase("B")){
-                this.gameDifficulty = Difficulty.MEDIUM;
-                tip = -3;
-            }
-            else if (difficulty.equalsIgnoreCase("C")){
-                this.gameDifficulty = Difficulty.DIFFICULT;
-                tip = -5;
-            }
-            else {
-                System.out.println("Game: Choose one of the given options.");
-            }
         }
+        if (difficulty.equalsIgnoreCase("A")){
+            this.gameDifficulty = Difficulty.EASY;
+            tip = -4;
+            player.maxFuckUps = 5;
+            player.fuckUpsLeft = 5;
+        }
+        else if (difficulty.equalsIgnoreCase("B")){
+            this.gameDifficulty = Difficulty.MEDIUM;
+            tip = -6;
+            player.maxFuckUps = 4;
+            player.fuckUpsLeft = 4;
+        }
+        else{
+            this.gameDifficulty = Difficulty.DIFFICULT;
+            tip = -8;
+            player.maxFuckUps = 3;
+            player.fuckUpsLeft = 3;
+        }
+        
     }
 
     /** Checks name for repeaters */
     public static void checkName(String name){
         if (playerNames.contains(player.name)){
-            System.out.println("Welcome back, "+ player.name + "!\nYou are hired again!\n");
+            System.out.println("Manager: Welcome back, "+ player.name + "! You are hired again!\n");
         }
         else {
             playerNames.add(player.name);
         }
-    }
-    
+    }   
 
     /** Fires player and ends game */
     public static void fired(){
         printDialogue("Manager: You've fucked up too many times. Take your tips and get out!");
         printDialogue(player.name + ": Damn. Guess I'll have to find another place to work...");
+        player.isFired = true;
         endGame();
     }
 
     /** Ends game, gives ending dialogue */
     public static void endGame(){
         printBorder(30);
-        printDialogue("Game: You made a total of $" + player.tips);
+        if (player.isFired){
+            printDialogue("Game: You fucked up too many times. You were fired.");
+        }
+        else{
+            printDialogue("Game: You didn't fuck up! You kept your job.");
+        }
+        printDialogue("      You could've made up to $" + ((round+1)*22));
+        printDialogue("      You made a total of $" + player.tips);
         printDialogue("      Thank you for playing!");
         System.exit(0);
     }
@@ -116,10 +135,16 @@ public class Game{
      * @param round number of current round
      */
     public void seatTable(Table table, int round){
-        int r = round*round;
+        int r;
+        if (round==0 || round==1){
+            r=round;
+        }
+        else{
+            r=random.nextInt(4)+1;  // Random number of questions between 1 and 4 inclusive
+        }
         // In the first round(round=0), 0 customers will have a question
         // In the second round, 1 customer will have a question
-        // In the third round, 4 customers will have a question
+        // In the subsequent rounds, 1-4 customers will have a question
         ArrayList<String> unusedNames = Game.customerNames;
         Customer c;
         for (int i=0 ; i<r ; i++){
@@ -145,14 +170,15 @@ public class Game{
         sentence = input.nextLine().toLowerCase();
 
         // Welcome guests
+        while (sentence.contains("help")){
+            Help.help();
+            sentence = input.nextLine().toLowerCase();
+        }
+        
         if (sentence.contains("welcome")){
             printDialogue(player.name + ": Welcome to " + Restaurant.name + "! Your table is right this way.");
             printDialogue("Game: Your guests feel welcomed.");
             table.totalTip+=1;
-        }
-
-        if (sentence.equalsIgnoreCase("help")){
-            Help.help();
         }
 
         else{
@@ -165,11 +191,13 @@ public class Game{
         sentence = input.nextLine().toLowerCase();
 
         // Greet table
+        while (sentence.contains("help")){
+            Help.help();
+            sentence = input.nextLine().toLowerCase();
+        }
         if (sentence.contains("greet")){
             printDialogue(player.name + ": Hello! My name is " + player.name + ". What can I get started for you today?");
-        }
-        if (sentence.equalsIgnoreCase("help")){
-            Help.help();
+            table.totalTip+=1;
         }
         else{
             printDialogue(player.name + ": What would you like to order?");
@@ -187,7 +215,7 @@ public class Game{
         for (int i=0; i<table.customers.size(); i++){
             if (table.customers.get(i).hasQuestion){
                 String question = Restaurant.questionKeys.get(random.nextInt(Restaurant.questionKeys.size()));
-                printDialogue(table.customers.get(i).name + ": " + question);
+                System.out.println(table.customers.get(i).name + ": " + question);
                 player.answerQuestion(question, tip, table.customers.get(i));
             }
             else{
@@ -200,11 +228,13 @@ public class Game{
         sentence = input.nextLine().toLowerCase();
 
         // Enter order
-        if (sentence.equalsIgnoreCase("help")){
-            Help.help();
-        }
         while (!sentence.contains("enter")){
-            System.out.println("Manager: Didn't you just take your table's order? You should have entered it by now!");
+            if (sentence.contains("help")){
+                Help.help();
+            }
+            else{
+                System.out.println("Manager: Didn't you just take your table's order? You should have entered it by now!");
+            }
             sentence = input.nextLine().toLowerCase();
         }
 
@@ -212,45 +242,39 @@ public class Game{
 
         ArrayList<Boolean> correctOrder = new ArrayList<Boolean>(); // did player correctly enter order
 
-        if (sentence.contains("enter")){
-            Customer c;
-            for (int i=0; i<table.customers.size(); i++){
-                c=table.customers.get(i);
-                correctOrder.add(player.enterOrder(c.order.name, c.name));
-            }
+        Customer c;
+        for (int i=0; i<table.customers.size(); i++){
+            c=table.customers.get(i);
+            correctOrder.add(player.enterOrder(c.order.name, c.name));
         }
-        else if (sentence.equalsIgnoreCase("help")){
-            Help.help();
-        }
+        
         printBorder(30);
 
         System.out.println("Chef: Order up! " + player.name + ", go serve your table!");
         sentence = input.nextLine().toLowerCase();
-        if (sentence.equalsIgnoreCase("help")){
-            Help.help();
-        }
 
         // Serve food
         while (!sentence.contains("serve")){
-            System.out.println("Chef: Oy, " + player.name + "! Serve the food before it goes cold!");
-            sentence = input.nextLine().toLowerCase();
-            if (sentence.equalsIgnoreCase("help")){
-            Help.help();
+            if (sentence.contains("help")){
+                Help.help();
             }
+            else{
+                System.out.println("Chef: Oy, " + player.name + "! Serve the food before it goes cold!");
+            }
+            sentence = input.nextLine().toLowerCase();
         }
 
         printDialogue(player.name + ": Here's your food! Enjoy your meal.");
         player.serveFood(correctOrder, table, tip);
 
         player.tips += table.totalTip();
-        printDialogue("Game: Your table finished their maeal.");
+        printDialogue("Game: Your table finished their meal.");
         printDialogue(player.name + ": I got $" + table.totalTip + " in tips from that table. I've earned $" + player.tips + " today!");
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         input = new Scanner(System.in);
         Game g = new Game();
-        int round = 0;
 
         Game.printBorder(25);
         
@@ -283,20 +307,43 @@ public class Game{
             printDialogue("Manager: Nice work! Before you move on to your next table, there's a few questions you should be able to answer.");
         }
         else {
-            System.out.println("Manager: Ok, a bit of a shaky start. You'll get the hang of it.");
+            printDialogue("Manager: Ok, a bit of a shaky start. You'll get the hang of it.");
             printDialogue("         Before you move on to your next table, there's a few questions you should be able to answer.");
         }
 
+        printBorder(30);
         ourRestaurant.printQuestions();
-        input.nextLine();
 
-        for (int i=0; i<2; i++){
+        round +=1;
+        Game.printBorder(60);
+        System.out.println("Manager: Alright, time for your next table. You know the drill!");
+        g.fullTable(round);
+
+        Boolean anotherRound = true;
+        String s="";
+
+        while (anotherRound==true){
             round +=1;
             Game.printBorder(60);
             System.out.println("Manager: Alright, time for your next table. You know the drill!");
             g.fullTable(round);
+            System.out.println("Manager: Do you have time to serve another table?");
+            System.out.println("A. Yes \nB. No");
+            s = input.nextLine().toLowerCase();
+            while (!s.equals("a") && !s.equals("b")){
+                System.out.println("Game: Choose one of the given options.");
+                s = input.nextLine();
+            }
+            if (s.equals("a")){
+                anotherRound = true;
+            }
+            else{
+                anotherRound = false;
+            }
         }
-        System.out.println("Manager: Congrats! You've finished your first shift.");
+
+        printDialogue("Manager: Alright, thanks for the hard work today. Congrats on finishing your first shift!");
+        printDialogue("         I'll see you again for your next shift. And I'll make sure you don't fuck up!");
         endGame();
     }
 }
