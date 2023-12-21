@@ -18,17 +18,17 @@ public class Waiter {
     /**
      * Current no. of times the player has fucked up
      */
-    private int currentFuckUps;
+    public int currentFuckUps;
 
     /**
      * No. of fuck ups left
      */
-    private int fuckUpsLeft;
+    public int fuckUpsLeft;
 
     /**
      * Sets maximum no. of times player can fuck up to 3
      */
-    final private int maxFuckUps = 3;
+    public int maxFuckUps;
 
     /**
      * Whether or not the player is fired
@@ -50,7 +50,8 @@ public class Waiter {
         this.name = name;
         this.tips = 0;
         this.currentFuckUps = 0;
-        this.fuckUpsLeft = 3;
+        this.fuckUpsLeft = 0;
+        this.maxFuckUps = 0;
     }
 
     /** 
@@ -101,6 +102,17 @@ public class Waiter {
     public void answerQuestion(String question, int amount, Customer customer){
         System.out.println("Game: Choose your answer: \n" + "A. Yes\n" + "B. No\n" + "C. I'm not sure, let me double check that.");
         String answer = scanner.nextLine();
+
+        while (!answer.equalsIgnoreCase("A") && !answer.equalsIgnoreCase("B") && !answer.equalsIgnoreCase("C")){
+            if (answer.equalsIgnoreCase("help")){
+                Help.help();
+            }
+            else{
+                System.out.println("Game: Choose one of the given options.");
+            }
+            answer = scanner.nextLine();
+        }
+
         // if the player is unsure
         if (answer.equalsIgnoreCase("C")){
             Game.printDialogue(this.name + ": I'm not sure, let me double check that.");
@@ -108,17 +120,13 @@ public class Waiter {
             String askKitchenChoice = scanner.nextLine();
             if(askKitchenChoice.equalsIgnoreCase("A")){
                 askKitchen(question);
-                 Game.printDialogue(customer + ": So?");
+                 Game.printDialogue(customer.name + ": So?");
                  answerQuestion(question, amount, customer);
             }
             
             else if(askKitchenChoice.equalsIgnoreCase("B")){
                 answerQuestion(question, amount, customer);
             }
-
-           else if (askKitchenChoice.equalsIgnoreCase("help")){
-                Help.help();
-            } 
             
             else {
                 System.out.println("");
@@ -148,13 +156,6 @@ public class Waiter {
             else{
                 Game.printDialogue(customer.getName() + ": Okay. Thank you.");
             }
-        }
-        
-        if (answer.equalsIgnoreCase("help")){
-            Help.help();
-        }
-        else {
-            Game.printDialogue("");
         }
     }
 
@@ -271,8 +272,7 @@ public class Waiter {
     }
 
     public void help(){
-        Help h = new Help();
-        h.help();
+        Help.help();
         callCommand(scanner.nextLine());
     }
 
